@@ -43,5 +43,8 @@ This command shows all containers, including stopped containers, allowing verifi
 docker rm my-nginx
 ```
 
+**Explanation:**  
+This command permanently removes the stopped container from the Docker environment.
+
 
 
