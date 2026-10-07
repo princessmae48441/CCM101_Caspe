@@ -1,4 +1,3 @@
-
 # Mission 6 - The Cloud Deployment Engineer
 
 ## Mission Overview
@@ -17,10 +16,23 @@ This mission focused on deploying a multi-tier private cloud storage system usin
 
 ## Commands Executed
 
-```bash
 mkdir nextcloud-deployment
 cd nextcloud-deployment
 nano docker-compose.yml
 docker-compose up -d
 docker-compose ps
 docker-compose down
+
+## Skills Learned
+
+- Creating and editing YAML configuration files.
+- Using Docker Compose to deploy multiple containers.
+- Connecting an application container to a database container.
+- Using environment variables in Docker Compose.
+- Checking the status of Docker containers.
+- Starting and stopping multi-container applications.
+- Understanding multi-tier architecture.
+- Applying Infrastructure as Code (IaC) principles.
+- Using Linux command-line tools.
+- Documenting cloud deployment procedures using Markdown.
+- Managing and deploying cloud applications using Docker.
