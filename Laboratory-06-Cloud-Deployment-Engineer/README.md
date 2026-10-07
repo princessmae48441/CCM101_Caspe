@@ -1,9 +1,4 @@
 
----
-
-### `README.md`
-
-```markdown
 # Mission 6 - The Cloud Deployment Engineer
 
 ## Mission Overview
