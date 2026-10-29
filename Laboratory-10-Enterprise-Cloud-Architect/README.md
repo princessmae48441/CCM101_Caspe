@@ -19,110 +19,62 @@ This project demonstrates virtualization, containerization, network configuratio
 - Document the system architecture and deployment process using Markdown.
 
 ## Technologies Used
+- **Host:** Windows laptop
+- **Hypervisor:** Oracle VirtualBox
+- **Server:** Ubuntu Server VM (`cloudnova`)
+- **VM address used in the lab:** `192.168.1.50` (may change if the network configuration changes)
+- **Application:** WordPress, published on TCP port `80`
+- **Database:** MySQL 8.0, reachable by WordPress over the internal Docker network only
+- **Persistent storage:** Docker named volumes for database and WordPress files
+- **Firewall:** UFW, default deny incoming; allow SSH (`22/tcp`) and HTTP (`80/tcp`)
+- **Automation:** Bash database backup script, configured for a daily 02:00 cron schedule
 
-- **Host Operating System:** Windows
-- **Virtualization Platform:** Oracle VirtualBox
-- **Guest Operating System:** Ubuntu Server
-- **Containerization:** Docker
-- **Container Orchestration:** Docker Compose
-- **Web/Application Tier:** WordPress
-- **Database Tier:** MySQL
-- **Firewall:** UFW
-- **Automation:** Bash Script and Cron
+> **Security:** Do not commit `.env`, real passwords, database dumps, private keys, or other secrets. The credentials in `.env.example` are placeholders only.
 
-## System Architecture
+## Repository Contents
 
-The Windows laptop runs VirtualBox, which hosts the Ubuntu Server virtual machine. Docker Compose manages the WordPress and MySQL containers, allowing them to communicate through a Docker network.
+| File | Purpose |
+|---|---|
+| `README.md` | Project overview and quick start |
+| `architecture-diagram.png` | High-level network and application topology |
+| `docker-compose.yml` | WordPress/MySQL deployment definition |
+| `automation-script.sh` | Database backup automation |
+| `operational-manual.md` | Deployment, security, operations, backup, restore, and troubleshooting |
+| `final-reflection.md` | Reflection on Missions 1–10 |
+| `.env.example` | Safe template for required environment variables |
+| `.gitignore` | Excludes secrets, backups, and temporary files |
+| `scripts/backup.sh` | Copy of the backup script at the path used by the current VM cron job |
+| `backups/.gitkeep` | Keeps the empty backup directory in Git |
 
-- **Windows Host:** Runs VirtualBox and provides access to the virtual machine.
-- **Ubuntu Server:** Hosts Docker, the application containers, and the firewall.
-- **WordPress:** Serves the website through HTTP on port 80.
-- **MySQL:** Stores WordPress data and communicates internally with WordPress on port 3306.
-- **Persistent Volumes:** Preserve WordPress files and MySQL database data.
-- **UFW Firewall:** Restricts incoming connections to the required ports, including SSH (22) and HTTP (80).
+## Prerequisites
 
-See the [System Architecture Diagram](https://github.com/princessmae48441/CCM101_Caspe/blob/main/Laboratory-10-Enterprise-Cloud-Architect/diagrams/architecture-diagram.md).
+- A supported Windows host with VirtualBox installed.
+- Ubuntu Server VM with network access.
+- SSH access to the VM.
+- Docker Engine and Docker Compose plugin installed.
+- A user account allowed to run Docker commands.
+- At least several GB of free disk space for images, WordPress files, database data, and backups.
 
-## Deployment Instructions
+## Quick Deployment
 
-1. Create a virtual machine in VirtualBox and install Ubuntu Server.
-2. Install Docker Engine and Docker Compose.
-3. Navigate to the project directory.
-4. Create the environment configuration file from the example:
+1. Clone or download this repository on the Ubuntu VM.
+2. Copy `.env.example` to `.env`.
+3. Edit `.env` and set unique, strong passwords locally.
+4. Restrict access to the secrets file: `chmod 600 .env`.
+5. Start the stack: `docker compose up -d`.
+6. Check the services: `docker compose ps`.
+7. Open [http://192.168.1.50/](http://192.168.1.50/) from a browser on the same local network, replacing the IP if the VM has a different address.
+8. Follow `operational-manual.md` before using the stack beyond a classroom lab.
 
-   ```bash
-   cp .env.example .env
-   ```
+## Known Lab Validation
 
-5. Edit `.env` and configure the required database credentials:
+During the lab, the MySQL container reported `healthy`, the WordPress container was running, and the Docker volumes `cloudnova-wp_db_data` and `cloudnova-wp_wp_data` existed. Windows PowerShell tests showed TCP ports 80 and 22 reachable and port 3306 not reachable from the host. A manual compressed database backup was created and passed `gzip -t`.
 
-   ```bash
-   nano .env
-   ```
+The cron entry was configured, but a successful scheduled run and a restore test still need to be recorded as completed only after they are actually verified.
 
-6. Start the application using Docker Compose:
+## Important Limitations
 
-   ```bash
-   docker compose up -d
-   ```
-
-7. Verify that the containers are running:
-
-   ```bash
-   docker ps
-   ```
-
-8. Find the Ubuntu Server IP address:
-
-   ```bash
-   hostname -I
-   ```
-
-9. Open a web browser on the Windows laptop and visit:
-
-   ```text
-   http://192.168.1.50
-   ```
-
-Replace `<UBUNTU-VM-IP>` with the actual IP address of the Ubuntu Server.
-
-## Security
-
-- UFW is configured to allow only the necessary incoming connections.
-- SSH uses port 22, and HTTP uses port 80.
-- MySQL port 3306 is not published directly to the host network.
-- Database credentials are stored in the `.env` file.
-- The actual `.env` file must not be uploaded to GitHub.
-- The `.gitignore` file should exclude `.env` and sensitive backup files.
-
-## Backup and Recovery
-
-The `scripts/backup.sh` script creates compressed backups of the MySQL database. Cron can be configured to run the script automatically according to a schedule.
-
-To create a manual database backup, run:
-
-```bash
-./scripts/backup.sh
-```
-
-Backup files should be stored securely. Test the database restoration process to verify that backups can be used to recover data when necessary.
-
-## Stopping and Restarting Services
-
-To stop the WordPress and MySQL containers without deleting their persistent volumes, run:
-
-```bash
-docker compose stop
-```
-
-To start the containers again, run:
-
-```bash
-docker compose up -d
-```
-
-Avoid deleting Docker volumes because they contain persistent application and database data.
-
+This is a lab handover, not a complete production-hardening baseline. Before production use, add HTTPS/TLS, regular OS and image patching, secure secret management, off-VM/off-site backup storage, monitoring, and a tested recovery procedure. Confirm the VM's IP address and network settings after host/router changes.
 ## Conclusion
 
 The CloudNova project demonstrates how Docker Compose can simplify the deployment and management of a multi-tier web application. It provides practical experience in virtualization, Linux server administration, containerization, network security, persistent storage, backup automation, and Infrastructure as Code (IaC).
