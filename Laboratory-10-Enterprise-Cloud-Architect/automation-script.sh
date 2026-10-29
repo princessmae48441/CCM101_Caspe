@@ -1,3 +1,12 @@
+
+## Database Backup Automation
+
+The CloudNova backup script creates a compressed backup of the WordPress MySQL database, verifies the compressed file, and removes backups older than seven days.
+
+### Backup Script
+
+```bash
+#!/usr/bin/env bash
 # CloudNova WordPress database backup
 set -Eeuo pipefail
 umask 077
@@ -47,4 +56,35 @@ mv "$TMP_FILE" "$BACKUP_FILE"
 find "$BACKUP_DIR" -maxdepth 1 -type f -name 'wp_db_*.sql.gz' -mtime +"$RETENTION_DAYS" -delete
 
 echo "[$(date --iso-8601=seconds)] Backup OK: $(basename "$BACKUP_FILE")"
+```
 
+### How to Run the Backup
+
+Run the following command on the Ubuntu Server VM:
+
+```bash
+./scripts/backup.sh
+```
+
+### Verify the Backup
+
+List the generated backup files:
+
+```bash
+ls -lh backups/
+```
+
+Verify a backup archive, replacing the filename with the actual file:
+
+```bash
+gzip -t backups/wp_db_YYYY-MM-DD_HH-MM-SS.sql.gz
+```
+
+If the command finishes without an error, the compressed archive passed the integrity check.
+
+### Security Notes
+
+- Keep `.env` private and exclude it from GitHub using `.gitignore`.
+- Never commit real passwords or database backup files.
+- Store backup copies outside the VM for better recovery protection.
+- Test database restoration separately; a successful compression check does not prove that a database can be restored.
