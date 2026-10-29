@@ -31,20 +31,6 @@ This project demonstrates virtualization, containerization, network configuratio
 
 > **Security:** Do not commit `.env`, real passwords, database dumps, private keys, or other secrets. The credentials in `.env.example` are placeholders only.
 
-## Repository Contents
-
-| File | Purpose |
-|---|---|
-| `README.md` | Project overview and quick start |
-| `architecture-diagram.png` | High-level network and application topology |
-| `docker-compose.yml` | WordPress/MySQL deployment definition |
-| `automation-script.sh` | Database backup automation |
-| `operational-manual.md` | Deployment, security, operations, backup, restore, and troubleshooting |
-| `final-reflection.md` | Reflection on Missions 1–10 |
-| `.env.example` | Safe template for required environment variables |
-| `.gitignore` | Excludes secrets, backups, and temporary files |
-| `scripts/backup.sh` | Copy of the backup script at the path used by the current VM cron job |
-| `backups/.gitkeep` | Keeps the empty backup directory in Git |
 
 ## Prerequisites
 
