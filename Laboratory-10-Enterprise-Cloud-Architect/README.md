@@ -35,23 +35,8 @@ The Windows laptop runs VirtualBox, which hosts the Ubuntu Server virtual machin
 
 See the [Architecture Diagram](diagrams/architecture-diagram.md).
 
-## Project Structure
-```text
-Laboratory-10-Enterprise-Cloud-Architect/
-├── diagrams/
-│   └── architecture-diagram.md
-├── scripts/
-│   └── backup.sh
-├── backups/
-│   └── .gitkeep
-├── .env.example
-├── .gitignore
-├── docker-compose.yml
-├── automation-script.sh
-├── operational-manual.md
-└── final-reflection.md
-```
 
+```
 ## Deployment Instructions
 1. Install Ubuntu Server in VirtualBox.
 2. Install Docker Engine and Docker Compose.
