@@ -72,9 +72,7 @@ During the lab, the MySQL container reported `healthy`, the WordPress container 
 
 The cron entry was configured, but a successful scheduled run and a restore test still need to be recorded as completed only after they are actually verified.
 
-## Important Limitations
 
-This is a lab handover, not a complete production-hardening baseline. Before production use, add HTTPS/TLS, regular OS and image patching, secure secret management, off-VM/off-site backup storage, monitoring, and a tested recovery procedure. Confirm the VM's IP address and network settings after host/router changes.
 ## Conclusion
 
 The CloudNova project demonstrates how Docker Compose can simplify the deployment and management of a multi-tier web application. It provides practical experience in virtualization, Linux server administration, containerization, network security, persistent storage, backup automation, and Infrastructure as Code (IaC).
