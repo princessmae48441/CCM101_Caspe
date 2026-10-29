@@ -16,7 +16,7 @@ This project demonstrates virtualization, containerization, network configuratio
 - Secure the server using UFW firewall rules.
 - Create a Bash script for MySQL database backups.
 - Schedule automated backups using Cron.
-- Document the system architecture and deployment process using Markdown.
+
 
 ## Technologies Used
 - **Host:** Windows laptop
