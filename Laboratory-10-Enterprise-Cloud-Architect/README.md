@@ -37,6 +37,7 @@ See the [Architecture Diagram](diagrams/architecture-diagram.md).
 
 
 ```
+
 ## Deployment Instructions
 1. Install Ubuntu Server in VirtualBox.
 2. Install Docker Engine and Docker Compose.
