@@ -64,7 +64,7 @@ This project demonstrates virtualization, containerization, network configuratio
 5. Start the stack: `docker compose up -d`.
 6. Check the services: `docker compose ps`.
 7. Open [http://192.168.1.50/](http://192.168.1.50/) from a browser on the same local network, replacing the IP if the VM has a different address.
-8. Follow `operational-manual.md` before using the stack beyond a classroom lab.
+
 
 ## Known Lab Validation
 
