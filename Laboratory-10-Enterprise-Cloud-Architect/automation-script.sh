@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 # CloudNova WordPress database backup
 set -Eeuo pipefail
 umask 077
